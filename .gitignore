@@ -1,0 +1,49 @@
+# --- Dependencies & Caches ---
+node_modules/
+.eslintcache
+.cache
+*.tsbuildinfo
+
+# --- Environment & Secrets (CRITICAL) ---
+.env
+.env*.local
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# --- Backend Specific (Bun/Node) ---
+/backend/out/
+/backend/dist/
+/backend/coverage/
+*.tgz
+*.lcov
+logs
+*.log
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# --- Mobile Specific (Expo/React Native) ---
+.expo/
+/mobile/dist/
+/mobile/web-build/
+expo-env.d.ts
+.metro-health-check*
+
+# --- Native Build Folders ---
+# Only ignore these if you aren't managing manual native code
+/mobile/ios/
+/mobile/android/
+.kotlin/
+*.orig.*
+
+# --- IDE & System Files ---
+.idea/
+.DS_Store
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# --- Misc ---
+app-example/
