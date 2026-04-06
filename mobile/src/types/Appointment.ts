@@ -6,5 +6,13 @@ export type FetchAppointment = {
   providerName: string;
   providerImage: string;
   providerId: string;
+  providerPhone?: string;
   category: string;
 };
+
+export interface RescheduleData {
+  appointmentId: string;
+  providerId: string;
+  date: string;
+  time: string;
+}

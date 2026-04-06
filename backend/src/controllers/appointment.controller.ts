@@ -6,8 +6,10 @@ import {
   fetchUserAppointments,
   isSlotAvailable,
   updateAppointmentStatus,
+  rescheduleAppointment as rescheduleAppointmentService,
 } from "../services/appointment.service";
 import { isValidId } from "../utils/isValidId";
+import AppointmentModel from "../models/Appointment";
 
 export const bookAppointment = asyncHandler(
   async (req: AuthRequest, res: Response) => {
@@ -70,8 +72,7 @@ export const getUserAppointments = asyncHandler(
         .json({ messsage: "Unathorize user or userid missing!" });
 
     const appointments = await fetchUserAppointments(userId);
-    console.log("Debug appoinme: ", appointments);
-    
+
     if (!appointments)
       return res.status(404).json({ message: "Appointment not found!" });
 
@@ -82,7 +83,17 @@ export const getUserAppointments = asyncHandler(
 export const cancelAppointment = asyncHandler(
   async (req: AuthRequest, res: Response) => {
     const { id } = req.params;
-    if (!id) return res.status(401).json({ messsage: "Unauthorized user!" });
+    const userId = req.user?.id;
+
+    if (!id || !userId)
+      return res.status(401).json({ messsage: "Unauthorized user!" });
+
+    const appointment = await AppointmentModel.findOne({ _id: id, userId });
+    if (!appointment) {
+      return res.status(404).json({
+        message: "Appointment not found or not authorized!",
+      });
+    }
 
     const updated = await updateAppointmentStatus(id, "Cancelled");
 
@@ -114,5 +125,73 @@ export const checkAvailability = asyncHandler(
       status: "success",
       available: !!available,
     });
+  },
+);
+
+export const rescheduleAppointment = asyncHandler(
+  async (req: AuthRequest, res: Response) => {
+    const { id } = req.params;
+    const { providerId, date, time } = req.body;
+    const userId = req.user?.id;
+    const appointmentId = Array.isArray(req.params.id)
+      ? req.params.id[0]
+      : req.params.id;
+
+    // Validation
+    if (!userId) return res.status(400).json({ message: "User not found!" });
+    if (!id)
+      return res.status(400).json({ message: "Appointment ID is required!" });
+    if (!providerId || !date || !time) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    if (!isValidId(providerId))
+      return res.status(400).json({ message: "Invalid provider!" });
+
+    if (!appointmentId || !isValidId(appointmentId)) {
+      return res.status(400).json({ message: "Invalid appointment ID!" });
+    }
+    // Check if appointment exists and belongs to user
+    const appointment = await AppointmentModel.findOne({ _id: id, userId });
+    if (!appointment) {
+      return res.status(404).json({
+        message: "Appointment not found or not authorized!",
+      });
+    }
+
+    // Check slot availability
+    const available = await isSlotAvailable(providerId, date, time);
+    if (!available) {
+      return res.status(409).json({
+        status: "error",
+        message: "This slot is already booked. Please choose a different time.",
+      });
+    }
+
+    try {
+      // Reschedule the appointment
+      const updatedAppointment = await rescheduleAppointmentService(
+        appointmentId,
+        {
+          providerId,
+          date,
+          time,
+        },
+      );
+
+      return res.status(200).json({
+        status: "success",
+        appointment: updatedAppointment,
+      });
+    } catch (error: any) {
+      if (error.code === 11000) {
+        return res.status(409).json({
+          status: "error",
+          message:
+            "This slot is already booked. Please choose a different time.",
+        });
+      }
+      throw error;
+    }
   },
 );

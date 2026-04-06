@@ -1,4 +1,5 @@
 import Appointment, { AppointmentStatus } from "../models/Appointment";
+import { isValidId } from "../utils/isValidId";
 
 export const createAppointment = async (data: {
   userId: string;
@@ -64,4 +65,21 @@ export const isSlotAvailable = async (providerId: string, date: string, time: st
   return !existingAppointment;
 };
 
+export const rescheduleAppointment = async (
+  appointmentId: string,
+  data: { providerId: string; date: string; time: string },
+) => {
+  if (!isValidId(appointmentId)) {
+    throw new Error("Invalid appointment ID");
+  }
 
+  return await Appointment.findByIdAndUpdate(
+    appointmentId,
+    {
+      providerId: data.providerId,
+      date: data.date,
+      timeSlot: data.time,
+    },
+    { returnDocument: "after" },
+  );
+};

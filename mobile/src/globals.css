@@ -10,7 +10,9 @@
     --color-card: #ffffff;
 
     /* Primary / Brand */
-    --color-primary: #006065;
+    --color-primary: 0, 96, 101;
+    --color-danger: 239, 68, 68;
+    /* --color-primary: #006065; */
     --color-primary-foreground: #ffffff;
     --color-active: #004231;
     --color-primary-muted: #00523e15; /* For light green backgrounds behind icons */
@@ -22,7 +24,7 @@
 
     /* Semantic / Status */
     --color-success: #10b981;
-    --color-danger: #ef4444;
+    /* --color-danger: #ef4444; */
     --color-warning: #f59e0b;
     --color-info: #3b82f6; /* Added for announcements */
 
@@ -39,7 +41,10 @@
     --color-card: #00093d4d; /* Deep blue-tinted card for dark mode */
 
     /* Primary / Brand */
-    --color-primary: #00696f;
+    --color-primary: 0, 105, 111;
+    --color-danger: 248, 113, 113;
+
+    /* --color-primary: #00696f; */
     --color-primary-foreground: #f8fafc;
     --color-active: #004231;
     --color-primary-muted: #00523e30;
@@ -51,7 +56,7 @@
 
     /* Semantic / Status */
     --color-success: #34d399;
-    --color-danger: #f87171;
+    /* --color-danger: #f87171; */
     --color-warning: #fbbf24;
     --color-info: #60a5fa;
 

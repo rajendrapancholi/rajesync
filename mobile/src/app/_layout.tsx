@@ -1,24 +1,31 @@
 import "react-native-reanimated";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { SplashScreen, Stack } from "expo-router";
 import "../globals.css";
 import api from "@/api/axiosInstance";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 import { CustomButton } from "@/components/ui/CustomButton";
+import { useColorScheme } from "nativewind";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 
 export default function RootLayout() {
   const [isNetworkError, setIsNetworkError] = useState(false);
+  const { colorScheme } = useColorScheme();
+
+  const queryClient = useMemo(() => new QueryClient(), []);
 
   useEffect(() => {
     const interceptor = api.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (error.message === "Network Error") {
-          setIsNetworkError(true);
-        }
+        if (error.message === "Network Error") setIsNetworkError(true);
         return Promise.reject(error);
       },
     );
@@ -43,11 +50,17 @@ export default function RootLayout() {
       </View>
     );
   }
-  const queryClient = new QueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <RootLayoutNav />
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <View className={`flex-1 ${colorScheme === "dark" ? "dark" : ""}`}>
+            <RootLayoutNav />
+          </View>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
@@ -65,11 +78,16 @@ function RootLayoutNav() {
   if (isLoading) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: "transparent" },
+      }}
+    >
       {userToken ? (
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       ) : (
-        <Stack.Screen name="(auth)" options={{ title: "Home" }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       )}
     </Stack>
   );

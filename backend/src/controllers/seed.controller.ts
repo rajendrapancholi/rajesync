@@ -13,7 +13,7 @@ export const SEED_DATA = [
     rating: 4.8,
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 25,
+    price: 925,
   },
   {
     name: "Sparky Electric",
@@ -24,7 +24,7 @@ export const SEED_DATA = [
     rating: 4.9,
     image:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 40,
+    price: 400,
   },
   {
     name: "Clean & Shine",
@@ -35,7 +35,7 @@ export const SEED_DATA = [
     rating: 4.7,
     image:
       "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 20,
+    price: 290,
   },
   {
     name: "Pipes & Flow",
@@ -46,7 +46,7 @@ export const SEED_DATA = [
     rating: 4.6,
     image:
       "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 35,
+    price: 358,
   },
   {
     name: "Donald Maid Service",
@@ -57,7 +57,7 @@ export const SEED_DATA = [
     rating: 5.0,
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 30,
+    price: 370,
   },
 ];
 

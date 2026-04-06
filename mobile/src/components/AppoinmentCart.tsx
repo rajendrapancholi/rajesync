@@ -2,13 +2,17 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FetchAppointment } from "@/types/Appointment";
+import { router } from "expo-router";
 
 interface AppointmentCardProps {
   appointment: FetchAppointment;
-  onCancel: (id: string)=>void;
+  onCancel: (id: string) => void;
 }
 
-export const AppointmentCard = ({ appointment, onCancel }: AppointmentCardProps) => {
+export const AppointmentCard = ({
+  appointment,
+  onCancel,
+}: AppointmentCardProps) => {
   const isUpcoming = appointment.status === "upcoming";
 
   return (
@@ -22,9 +26,7 @@ export const AppointmentCard = ({ appointment, onCancel }: AppointmentCardProps)
           <Text className="text-main font-bold text-lg">
             {appointment.providerName || "provider"}
           </Text>
-          <Text className="text-muted text-sm">
-            {appointment.category}
-          </Text>
+          <Text className="text-muted text-sm">{appointment.category}</Text>
 
           <View className="flex-row items-center mt-2">
             <Ionicons name="calendar-outline" size={14} color="#6B7280" />
@@ -64,14 +66,23 @@ export const AppointmentCard = ({ appointment, onCancel }: AppointmentCardProps)
         </View>
       </View>
 
-      {isUpcoming && (
+      <View className="flex-row gap-3 mt-4">
         <TouchableOpacity
-          onPress={() => onCancel(appointment.id)}
-          className="mt-4 border border-red-200 py-3 rounded-2xl items-center"
+          onPress={() => router.push(`/appointment/${appointment.id}`)}
+          className="flex-1 bg-primary/20 py-3 rounded-2xl flex-center"
         >
-          <Text className="text-red-500 font-bold">Cancel Appointment</Text>
+          <Text className="text-main font-bold">Details</Text>
         </TouchableOpacity>
-      )}
+
+        {isUpcoming && (
+          <TouchableOpacity
+            onPress={() => onCancel(appointment.id)}
+            className="flex-1 border border-danger/50 py-3 rounded-2xl flex-center"
+          >
+            <Text className="text-danger font-bold">Cancel</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };

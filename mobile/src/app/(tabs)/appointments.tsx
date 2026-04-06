@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   RefreshControl,
+  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,9 +17,12 @@ import {
   useCancelAppointment,
 } from "@/hooks/useAppointments";
 import { AppointmentCard } from "@/components/AppoinmentCart";
+import { router } from "expo-router";
 
 export default function Appointments() {
   const { colors } = useThemeColors();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"newest" | "name">("newest");
   const [activeTab, setActiveTab] = useState("Upcoming");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [alertVisible, setAlertVisible] = useState(false);
@@ -29,7 +33,6 @@ export default function Appointments() {
     showConfirm: boolean;
   }>({ title: "", message: "", type: "info", showConfirm: true });
 
-  // Fetch real data from backend
   const { data: appointments = [], isLoading, refetch } = useUserAppointments();
   const cancelMutation = useCancelAppointment();
 
@@ -60,7 +63,9 @@ export default function Appointments() {
         onError: (err: any) => {
           setAlertConfig({
             title: "Cancellation Failed",
-            message: err?.response?.data?.message || "Something went wrong. Please try again.",
+            message:
+              err?.response?.data?.message ||
+              "Something went wrong. Please try again.",
             type: "danger",
             showConfirm: false,
           });
@@ -70,11 +75,30 @@ export default function Appointments() {
     }
   };
 
-  const displayData = appointments.filter((item: any) =>
-    activeTab === "Upcoming"
-      ? item.status === "upcoming"
-      : item.status !== "upcoming",
-  );
+  // const displayData = appointments.filter((item: any) =>
+  //   activeTab === "Upcoming"
+  //     ? item.status === "upcoming"
+  //     : item.status !== "upcoming",
+  // );
+
+  const displayData = appointments
+    .filter((item: any) =>
+      activeTab === "Upcoming" ? item.status === "upcoming" : item.status !== "upcoming"
+    )
+    .filter((item: any) => {
+      const search = searchQuery.toLowerCase();
+      return (
+        item.id.toLowerCase().includes(search) ||
+        item.providerName.toLowerCase().includes(search) ||
+        item.category.toLowerCase().includes(search)
+      );
+    })
+    .sort((a: any, b: any) => {
+      if (sortBy === "name") {
+        return a.providerName.localeCompare(b.providerName);
+      }
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
   if (isLoading && appointments.length === 0) {
     return (
@@ -93,6 +117,36 @@ export default function Appointments() {
       <Text className="text-3xl font-bold text-main mt-6 mb-6">
         My Bookings
       </Text>
+      <View className="flex-row items-center bg-surface px-4 py-3 rounded-2xl border border-border mt-4 mb-4">
+        <Ionicons name="search" size={20} color={colors.textMain} />
+        <TextInput
+          placeholder="Search by ID, Name, Category..."
+          placeholderTextColor={colors.muted}
+          className="flex-1 ml-3 text-main"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        {searchQuery !== "" && (
+          <TouchableOpacity onPress={() => setSearchQuery("")}>
+            <Ionicons name="close-circle" size={18} color={colors.textMain} />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View className="flex-row gap-2 mb-6">
+        <TouchableOpacity 
+          onPress={() => setSortBy("newest")}
+          className={`px-4 py-2 rounded-full border ${sortBy === 'newest' ? 'bg-primary border-primary' : 'border-border'}`}
+        >
+          <Text className={sortBy === 'newest' ? 'text-white font-bold' : 'text-muted'}>Newest</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => setSortBy("name")}
+          className={`px-4 py-2 rounded-full border ${sortBy === 'name' ? 'bg-primary border-primary' : 'border-border'}`}
+        >
+          <Text className={sortBy === 'name' ? 'text-white font-bold' : 'text-muted'}>By Name</Text>
+        </TouchableOpacity>
+      </View>
+
 
       {/* Tab Switcher */}
       <View className="flex-row bg-surface p-1.5 rounded-2xl border border-border mb-6">
@@ -118,7 +172,16 @@ export default function Appointments() {
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <AppointmentCard appointment={item} onCancel={confirmCancel} />
+          <View>
+            <AppointmentCard appointment={item} onCancel={confirmCancel} />
+            {/* LINK TO DETAILS */}
+            <TouchableOpacity 
+              onPress={() => router.push(`/appointment/${item.id}`)}
+              className="mt-[-15] mb-4 self-end mr-4"
+            >
+              <Text className="text-primary font-bold text-sm">View Details →</Text>
+            </TouchableOpacity>
+          </View>
         )}
         refreshControl={
           <RefreshControl

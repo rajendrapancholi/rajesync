@@ -40,7 +40,7 @@ export const CustomAlert = ({
 
   return (
     <Modal animationType="fade" transparent={true} visible={visible} onRequestClose={onClose}>
-      <View className="flex-1 justify-center items-center bg-black/60 px-6">
+      <View className="flex-1 justify-center items-center bg-black/60 px-6" >
         <View className="bg-surface border border-border w-full rounded-[32px] p-6 items-center shadow-2xl relative">
 
           {/* TOP RIGHT CLOSE ICON */}

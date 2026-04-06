@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { useThemeColors } from "@/constants/theme";
 import { CustomAlert } from "@/components/ui/CustomAlert";
 import { CustomButton } from "@/components/ui/CustomButton";
-import { useBookAppointment } from "@/hooks/useBookingMutations";
+import {
+  useBookAppointment,
+  useRescheduleAppointment,
+} from "@/hooks/useBookingMutations";
 import { useGetAvailableSlots, useGetProviderById } from "@/hooks/useProviders";
 import { ProviderDetailSkeleton } from "@/components/skeletons/ProviderDetailSkeleton";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -22,10 +25,19 @@ import { getNextDays } from "@/utils/helper";
 import { EmptySlots } from "@/components/ui/EmptySlot";
 import { DateScroller } from "@/components/ui/DateScroller";
 import { SlotButton } from "@/components/ui/SlotButton";
+import { useUserAppointments } from "@/hooks/useAppointments";
 
 export default function ProviderDetails() {
-  const { id } = useLocalSearchParams();
+  const { id, reschedule, appointmentId } = useLocalSearchParams<{
+    id: string;
+    reschedule?: string;
+    appointmentId?: string;
+  }>();
+
   const providerId = Array.isArray(id) ? id[0] : id; // Ensure string
+  const appointmentIdToReschedule = Array.isArray(appointmentId)
+    ? appointmentId[0]
+    : appointmentId;
 
   const router = useRouter();
   const { colors } = useThemeColors();
@@ -42,9 +54,19 @@ export default function ProviderDetails() {
   }>({ title: "", message: "", type: "info" });
 
   const { data: provider, isLoading } = useGetProviderById(providerId);
-
   const { data: availableSlots, isLoading: isSlotsLoading } =
     useGetAvailableSlots(providerId, selectedDate);
+  const { data: userAppointments } = useUserAppointments();
+  const appointmentToReschedule = userAppointments?.find(
+    (a) => a.id === appointmentIdToReschedule,
+  );
+
+  useEffect(() => {
+    if (reschedule === "true" && appointmentToReschedule) {
+      setSelectedDate(appointmentToReschedule.date);
+      setSelectedSlot(appointmentToReschedule.timeSlot);
+    }
+  }, [reschedule, appointmentToReschedule]);
 
   const minCalendarDate = new Date();
   minCalendarDate.setDate(minCalendarDate.getDate() + 4);
@@ -70,6 +92,18 @@ export default function ProviderDetails() {
       // On Error
       setAlertConfig({
         title: "Booking Failed",
+        message: errorMsg,
+        type: "danger",
+      });
+      setAlertVisible(true);
+    },
+  );
+
+  const rescheduleMutation = useRescheduleAppointment(
+    () => router.replace("/(tabs)/appointments"),
+    (errorMsg) => {
+      setAlertConfig({
+        title: "Rescheduling Failed",
         message: errorMsg,
         type: "danger",
       });
@@ -108,7 +142,7 @@ export default function ProviderDetails() {
     if (!selectedSlot) {
       setAlertConfig({
         title: "Selection Required",
-        message: "Please select an available time slot before booking.",
+        message: "Please select a time slot.",
         type: "warning",
       });
       setAlertVisible(true);
@@ -116,8 +150,11 @@ export default function ProviderDetails() {
     }
 
     setAlertConfig({
-      title: "Confirm Booking",
-      message: `Do you want to book ${provider.name} at ${selectedSlot}?`,
+      title: reschedule === "true" ? "Confirm Reschedule" : "Confirm Booking",
+      message:
+        reschedule === "true"
+          ? `Do you want to reschedule with ${provider.name} at ${selectedSlot}?`
+          : `Do you want to book ${provider.name} at ${selectedSlot}?`,
       type: "info",
     });
     setAlertVisible(true);
@@ -126,12 +163,20 @@ export default function ProviderDetails() {
   const onConfirmAction = () => {
     setAlertVisible(false);
     if (selectedSlot && provider) {
-      // EXECUTE BOOKING
-      bookingMutation.mutate({
-        providerId: providerId,
-        date: selectedDate,
-        time: selectedSlot,
-      });
+      if (reschedule === "true" && appointmentToReschedule) {
+        rescheduleMutation.mutate({
+          appointmentId: appointmentToReschedule.id,
+          providerId: providerId,
+          date: selectedDate,
+          time: selectedSlot,
+        });
+      } else {
+        bookingMutation.mutate({
+          providerId: providerId,
+          date: selectedDate,
+          time: selectedSlot,
+        });
+      }
     }
   };
 
@@ -240,7 +285,13 @@ export default function ProviderDetails() {
         </View>
         <View className="flex-1 ml-4">
           <CustomButton
-            title={bookingMutation.isPending ? "Booking..." : "Book Now"}
+            title={
+              bookingMutation.isPending
+                ? "Processing..."
+                : reschedule === "true"
+                  ? "Reschedule Now"
+                  : "Book Now"
+            }
             onPress={handleBook}
             disabled={bookingMutation.isPending}
           />
