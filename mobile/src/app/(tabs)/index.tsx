@@ -91,9 +91,9 @@ export default function Dashboard() {
       {/* Header */}
       <View className="mt-4 flex-row justify-between items-center">
         <View>
-          <Text className="text-muted text-lg">Hello,</Text>
+          <Text className="text-muted text-lg">Welcome back,</Text>
           <Text className="text-main text-3xl font-bold">
-            {user?.name || "Guest"}
+            {user?.name || "Guest"} 👋
           </Text>
         </View>
         <TouchableOpacity
@@ -103,7 +103,7 @@ export default function Dashboard() {
           <Ionicons
             name="notifications-outline"
             size={24}
-            color={colors.surface}
+            color={colors.primary}
           />
           {(upcomingCount ?? 0) > 0 && (
             <View className="absolute top-1 right-1 bg-danger rounded-full h-6 w-6 flex-center border-2 border-surface">

@@ -14,8 +14,19 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+// import { removeToken } from "@/services/storageService";
 
 export default function RootLayout() {
+  // useEffect(() => {
+  //   const clearEverything = async () => {
+  //     await removeToken();
+  //     const RCTNetworking = require("react-native/Libraries/Network/RCTNetworking");
+  //     RCTNetworking.clearCookies(() => {});
+
+  //     console.log("Storage and Cookies cleared");
+  //   };
+  //   clearEverything();
+  // }, []);
   const [isNetworkError, setIsNetworkError] = useState(false);
   const { colorScheme } = useColorScheme();
 
