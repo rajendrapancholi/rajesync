@@ -5,59 +5,114 @@ import ProviderModel from "../models/Provider";
 
 export const SEED_DATA = [
   {
-    name: "Ram's Quick Repairs",
-    email: "rams@provider.com",
-    category: "Repair",
+    name: "Dr. Anita Verma",
+    email: "anita.verma@provider.com",
+    category: "Doctor",
     password_hash:
-      "$2b$10$NnKVgswhtZEyKvOLlF9F3OWCeqyrnQ3LP9cAs3zueUQU9g9NF.whO",
-    rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 925,
-  },
-  {
-    name: "Sparky Electric",
-    email: "sparky@provider.com",
-    category: "Electrician",
-    password_hash:
-      "$2b$10$Y6NeQ5WTdfSmQxWrWrzG5uVBZVxCwJB8yrHKhfnK/tBV.G4wQCfGq",
+      "$2b$10$EqErZdwMeL0M5nD1Y4m/MOOErtlf0WxPeeM2yTSaaZnsM3tHbERrG",
     rating: 4.9,
     image:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 400,
+      "https://images.unsplash.com/photo-1550831107-1553da8c8464?q=80&w=800&auto=format&fit=crop",
+    price: 1200,
   },
   {
-    name: "Clean & Shine",
-    email: "cleanshine@provider.com",
-    category: "Cleaning",
+    name: "Advocate Rahul Mehra",
+    email: "rahul.mehra@provider.com",
+    category: "Lawyer",
     password_hash:
-      "$2b$10$JLjYDr1XPUpODENyaegPCe3T7T/mqczfExyob6z7SCDCDKSvKhjn2",
+      "$2b$10$Ri03X14DDFXJvtAONIV9ROujkFpeDBPx/KTH00K4hZTFBbHPQ/.w.",
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=800&auto=format&fit=crop",
+    price: 1600,
+  },
+  {
+    name: "FitLife Trainer - Karan",
+    email: "karan.trainer@provider.com",
+    category: "Fitness Trainer",
+    password_hash:
+      "$2b$10$Oc8GYrR1ANfTrDzb6iEH1.W1owbNHwV20.tKcD16FSvLPZBhuDbze",
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 290,
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abad1?q=80&w=800&auto=format&fit=crop",
+    price: 650,
   },
   {
-    name: "Pipes & Flow",
-    email: "pipes@provider.com",
-    category: "Plumbing",
+    name: "PeaceMind Therapy",
+    email: "therapy@provider.com",
+    category: "Therapist",
     password_hash:
-      "$2b$10$3M31PzVccpnMNre2HKAJ0.u8KlvluaJQUiddBeW3eR39UnT./sqNi",
+      "$2b$10$ThL5E8wQ7muM2nRZb18FQejnmrF7F4v/6Va.m9jGCLzqET95SOxJC",
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop",
+    price: 1400,
+  },
+  {
+    name: "SpeedFix Auto Care",
+    email: "autocare@provider.com",
+    category: "Mechanic",
+    password_hash:
+      "$2b$10$/qW289KT.o1igBERfl6RqeFtzSrx.eTuZbmNIiS/2RpI9t245c6j.",
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=761&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 358,
+      "https://images.unsplash.com/photo-1542365887-1f1a1a1a4a1a?q=80&w=800&auto=format&fit=crop",
+    price: 500,
   },
   {
-    name: "Donald Maid Service",
-    email: "donald@provider.com",
-    category: "Cleaning",
+    name: "Elite Home Chef – Priya",
+    email: "priya.chef@provider.com",
+    category: "Chef",
     password_hash:
-      "$2b$10$ddSOJ9qgGZ22j4/S7vIEM.SlH8aaQN1DBjGZNU.1421sEdGQiCk02",
+      "$2b$10$u5oN7xRpZYv2oYCJSRrNAeTjP5rHOeNVx3g.mXuj4SwAmhIJU9MQi",
     rating: 5.0,
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    price: 370,
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",
+    price: 950,
+  },
+  {
+    name: "BrightLens Photography",
+    email: "photography@provider.com",
+    category: "Photographer",
+    password_hash:
+      "$2b$10$kt6ifhYsMbK31ih6CASaQeccAuIRiSB1GSFvBkTy.adJT.IQ/Znqu",
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop",
+    price: 1800,
+  },
+  {
+    name: "SmartTutor – Rohan",
+    email: "rohan.tutor@provider.com",
+    category: "Tutor",
+    password_hash:
+      "$2b$10$lrZKQ155e9joGykpzeBqI.dEapDK7QMJVNLlWwpmnZbOnRKfF6TDG",
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop",
+    price: 700,
+  },
+  {
+    name: "Harmony Spa & Wellness",
+    email: "spa@provider.com",
+    category: "Spa",
+    password_hash:
+      "$2b$10$T/zvEtwK93sPNw6IQoAyeujuaLOsAeLgfUkOUPaxpDN/7gnsPdfPO",
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1556228453-efd6b9e644de?q=80&w=800&auto=format&fit=crop",
+    price: 900,
+  },
+  {
+    name: "TechPro IT Support",
+    email: "techpro@provider.com",
+    category: "IT Support",
+    password_hash:
+      "$2b$10$rCPhoE2snl46.fwxlZe2zOSUnNvBBClxXxwzE80dWU2M6PcDzGhCu",
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1495727034151-8fdc73e332a8?q=80&w=800&auto=format&fit=crop",
+    price: 550,
   },
 ];
 

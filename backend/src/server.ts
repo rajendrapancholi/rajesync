@@ -16,7 +16,7 @@ const httpServer: HTTPServer = createServer(app);
     await connectDB();
     console.log("DB is connected via Mongoose!");
 
-    httpServer.listen(PORT, HOST, () => {
+    httpServer.listen(PORT, "0.0.0.0", () => {
       console.log(
         `Server is running at "http://${HOST}:${PORT}" in ${NODE_ENV} mode`,
       );
