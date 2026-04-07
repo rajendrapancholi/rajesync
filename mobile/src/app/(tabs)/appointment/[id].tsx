@@ -260,7 +260,7 @@ export default function AppointmentDetail() {
               }}
               className="bg-surface flex-1 flex-center px-6 py-3 rounded-2xl flex-row items-center border border-border"
             >
-              <Ionicons name="call" size={18} color={colors.surface} />
+              <Ionicons name="call" size={18} color={colors.info} />
               <Text className="text-main font-bold ml-2">Call</Text>
             </TouchableOpacity>
           </View>
