@@ -11,7 +11,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_BASE_API": "http://10.1.0.248:5000/api",
+        "EXPO_PUBLIC_BASE_API": "https://rajesync.onrender.com/api",
         "EXPO_PUBLIC_TOKEN_KEY": "token"
       },
       "android": {

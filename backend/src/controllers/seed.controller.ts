@@ -34,7 +34,7 @@ export const SEED_DATA = [
       "$2b$10$Oc8GYrR1ANfTrDzb6iEH1.W1owbNHwV20.tKcD16FSvLPZBhuDbze",
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1544716278-ca5e3f4abad1?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1708011108842-30966718105a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fGZpdG5lc3MlMjB0cmFpbmVyJTIwdXNlcnxlbnwwfHwwfHx8MA%3D%3D",
     price: 650,
   },
   {
@@ -56,7 +56,7 @@ export const SEED_DATA = [
       "$2b$10$/qW289KT.o1igBERfl6RqeFtzSrx.eTuZbmNIiS/2RpI9t245c6j.",
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1542365887-1f1a1a1a4a1a?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80&ixlib=rb-4.1.0",
     price: 500,
   },
   {
@@ -89,7 +89,7 @@ export const SEED_DATA = [
       "$2b$10$lrZKQ155e9joGykpzeBqI.dEapDK7QMJVNLlWwpmnZbOnRKfF6TDG",
     rating: 4.8,
     image:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1716471551703-e8bb5ca9bf23?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHR1dHVyJTIwdXNlcnxlbnwwfHwwfHx8MA%3D%3D",
     price: 700,
   },
   {
@@ -100,7 +100,7 @@ export const SEED_DATA = [
       "$2b$10$T/zvEtwK93sPNw6IQoAyeujuaLOsAeLgfUkOUPaxpDN/7gnsPdfPO",
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1556228453-efd6b9e644de?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1704502889897-83d6ebcca97e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fHNwYSUyMHVzZXJ8ZW58MHx8MHx8fDA%3D",
     price: 900,
   },
   {
